@@ -1,0 +1,75 @@
+<h3>Listado de Estudiantes</h3>
+
+<button class="btn btn-primary float-end mb-4" (click)="btnAgregarPersona()">Añadir nuevo estudiante</button>
+
+
+<div class="mt-5 mb-5" *ngIf="verFormulario">
+  <form [formGroup]="formPersona" (ngSubmit)="onGuardarEstudiante()">
+
+    <div class="row">
+      <div class="col-6">
+        <div class="mb-3">
+          <label for="exampleFormControlInput1" class="form-label">DNI</label>
+          <input type="number" class="form-control" id="exampleFormControlInput1"
+            placeholder="Ingrese su número de documento" formControlName="perDni">
+        </div>
+
+
+        <div class="mb-3">
+          <label for="exampleFormControlInput1" class="form-label">Email</label>
+          <input type="email" class="form-control" placeholder="name@example.com" formControlName="perEmail">
+        </div>
+      </div>
+      <div class="col-6">
+        <div class="mb-3">
+          <label for="exampleFormControlInput1" class="form-label">Nombre y Apellido</label>
+          <input type="text" class="form-control" id="exampleFormControlInput1"
+            placeholder="Escriba su nombre y apellido" formControlName="perNombreApellido">
+        </div>
+
+        <div class="mb-3">
+          <label for="exampleFormControlInput1" class="form-label">Fecha de Nacimiento</label>
+          <input type="date" class="form-control" id="exampleFormControlInput1" formControlName="perFechaNacimiento">
+        </div>
+      </div>
+    </div>
+
+    <div class="float-center mt-3">
+      <button type="submit" class="btn btn-success me-3">Guardar estudiante</button>
+      <button type="button" class="btn btn-danger" (click)="btnCancelar()" >Cancelar</button>
+    </div>
+  </form>
+  <!-- Muestro los valores del formulario en JSON -->
+  <pre>{{formPersona.value | json}}</pre>
+
+</div>
+
+<!-- Tabla de Datos -->
+
+<table class="table table-hover table-warning mt-5">
+    <thead>
+      <tr>
+        <th scope="col">DNI</th>
+        <th scope="col">Nombre y Apellido</th>
+        <th scope="col">Email</th>
+        <th scope="col">Fecha de Nacimiento</th>
+        <th scope="col">#</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let persona of listaPersonas">
+        <th>{{persona.perDni}}</th>
+        <td>{{persona.perNombreApellido}}</td>
+        <td>{{persona.perEmail}}</td>
+        <td>{{persona.perFechaNacimiento}}</td>
+        <td>
+          <button type="button" class="btn btn-warning text-white me-1" (click)="btnEditar(persona)" >
+            M
+          </button>
+          <button type="button" class="btn btn-danger" (click)="btnEliminar(persona.id)">
+            B
+          </button>
+          </td>
+      </tr>
+    </tbody>
+  </table>
